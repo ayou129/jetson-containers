@@ -10,8 +10,12 @@ cd /opt/xformers
 
 if [[ -z "${IS_SBSA}" || "${IS_SBSA}" == "0" || "${IS_SBSA,,}" == "false" ]]; then
     export MAX_JOBS=6
+    # Jetson Orin: compute capability 8.7 = SM_87
+    export CUDA_ARCH=87
 else
     export MAX_JOBS=16
+    # Jetson Thor (SBSA): compute capability 11.0 = SM_90
+    export CUDA_ARCH=90
 fi
 ARCH=$(uname -i)
 if [ "${ARCH}" = "aarch64" ]; then
@@ -22,10 +26,11 @@ if [ "${ARCH}" = "aarch64" ]; then
       export NINJAFLAGS='-j2'
 fi
 
-echo "Building with MAX_JOBS=$MAX_JOBS and CMAKE_BUILD_PARALLEL_LEVEL=$MAX_JOBS"
+echo "Building xformers with MAX_JOBS=$MAX_JOBS, CMAKE_BUILD_PARALLEL_LEVEL=$MAX_JOBS, CUDA_ARCH=$CUDA_ARCH"
 
 MAX_JOBS=$MAX_JOBS \
 CMAKE_BUILD_PARALLEL_LEVEL=$MAX_JOBS \
+CUDA_ARCH=$CUDA_ARCH \
 XFORMERS_DISABLE_FLASH_ATTN=1 \
 XFORMERS_MORE_DETAILS=1 \
 python3 setup.py --verbose bdist_wheel --dist-dir /opt/xformers/wheels
