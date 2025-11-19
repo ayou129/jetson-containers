@@ -9,6 +9,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 ARG TORCHAO_VERSION \
+    IS_SBSA \
     FORCE_BUILD=off
 
 COPY build.sh install.sh /tmp/torchao/
