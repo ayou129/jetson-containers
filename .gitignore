@@ -21,3 +21,4 @@ nv_tegra_release
 kokoro-*-*.wav
 audio.wav
 benchmark.csv
+!.claude/settings.local.json
