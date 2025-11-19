@@ -64,7 +64,18 @@
       "Bash(docker version:*)",
       "Bash(docker info:*)",
       "Bash(./autotag:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(docker rmi:*)",
+      "Bash(for:*)",
+      "Bash(do)",
+      "Bash(if grep -q \"FAILED\\|Error\\|failed\\|Exception\" \"$f\")",
+      "Bash(then)",
+      "Bash(basename:*)",
+      "Bash(fi)",
+      "Bash(docker image history:*)",
+      "Bash(docker inspect:*)"
     ],
     "deny": [],
     "ask": []
