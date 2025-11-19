@@ -50,9 +50,9 @@ section "Configuring parallelism"
 if [[ -z "${IS_SBSA}" || "${IS_SBSA}" == "0" || "${IS_SBSA,,}" == "false" ]]; then
     export MAX_JOBS=6
 else
-    # Jetson Thor (SBSA/SM_90): Reduced parallelism to avoid driver instability
-    export MAX_JOBS=12
-    export CMAKE_BUILD_PARALLEL_LEVEL=12
+    # Jetson Thor (SBSA/SM_90): Conservative parallelism to avoid system overload
+    export MAX_JOBS=6
+    export CMAKE_BUILD_PARALLEL_LEVEL=6
     export CPLUS_INCLUDE_PATH=/usr/local/cuda-13.0/targets/sbsa-linux/include/cccl
 fi
 export NVCC_THREADS=2
@@ -121,7 +121,7 @@ if [[ -z "${IS_SBSA}" || "${IS_SBSA}" == "0" || "${IS_SBSA,,}" == "false" ]]; th
     --config-settings=cmake.args="-G;Ninja" \
     --config-settings=cmake.define.TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}" \
     --config-settings=cmake.define.CUDA_VERSION="${CUDA_VERSION}" \
-    --config-settings=cmake.define.SGL_KERNEL_COMPILE_THREADS=$(($(nproc) - 2)) \
+    --config-settings=cmake.define.SGL_KERNEL_COMPILE_THREADS=6 \
     --config-settings=cmake.define.SGL_KERNEL_ENABLE_FA3=1 \
     --config-settings=cmake.define.ENABLE_BELOW_SM90=ON \
     --config-settings=cmake.define.CMAKE_POLICY_VERSION_MINIMUM=3.5
@@ -130,7 +130,7 @@ else
       --config-settings=cmake.args="-G;Ninja" \
       --config-settings=cmake.define.TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}" \
       --config-settings=cmake.define.CUDA_VERSION="${CUDA_VERSION}" \
-      --config-settings=cmake.define.SGL_KERNEL_COMPILE_THREADS=$(($(nproc) - 2)) \
+      --config-settings=cmake.define.SGL_KERNEL_COMPILE_THREADS=6 \
       --config-settings=cmake.define.SGL_KERNEL_ENABLE_BF16=1 \
       --config-settings=cmake.define.SGL_KERNEL_ENABLE_FP8=1 \
       --config-settings=cmake.define.SGL_KERNEL_ENABLE_FP4=1 \
