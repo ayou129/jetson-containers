@@ -1,4 +1,4 @@
-from jetson_containers import CUDA_VERSION
+from jetson_containers import CUDA_VERSION, IS_SBSA
 from packaging.version import Version
 from ..pytorch.version import PYTORCH_VERSION
 from jetson_containers import update_dependencies
@@ -22,6 +22,7 @@ def xformers(version, requires=None, pytorch=None, default=True):
 
     pkg['build_args'] = {
         'XFORMERS_VERSION': version,
+        'IS_SBSA': IS_SBSA,
     }
 
     builder = pkg.copy()
