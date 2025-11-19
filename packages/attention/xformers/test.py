@@ -17,7 +17,14 @@ pipe = DiffusionPipeline.from_pretrained(
     device_map=None,            # avoid accelerate auto-offload
 ).to("cuda")
 
-pipe.enable_xformers_memory_efficient_attention()
+# On SM_90 (Thor), xformers float32 kernels aren't available, but float16 works fine
+try:
+    pipe.enable_xformers_memory_efficient_attention()
+except NotImplementedError as e:
+    if "too new" in str(e):
+        print(f"Warning: xformers float32 not supported on SM_90, but float16 will work during inference")
+    else:
+        raise
 
 with torch.inference_mode(), torch.autocast("cuda", dtype=torch.float16):
     image = pipe("a small cat", num_inference_steps=20, guidance_scale=7.0, height=256, width=256).images[0]
