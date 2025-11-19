@@ -1,3 +1,4 @@
+from jetson_containers import IS_SBSA
 
 def torchao(version, requires=None, default=False):
     pkg = package.copy()
@@ -12,6 +13,7 @@ def torchao(version, requires=None, default=False):
 
     pkg['build_args'] = {
         'TORCHAO_VERSION': version,
+        'IS_SBSA': IS_SBSA,
     }
 
     builder = pkg.copy()
