@@ -50,8 +50,9 @@ section "Configuring parallelism"
 if [[ -z "${IS_SBSA}" || "${IS_SBSA}" == "0" || "${IS_SBSA,,}" == "false" ]]; then
     export MAX_JOBS=6
 else
-    export MAX_JOBS=32
-    export CMAKE_BUILD_PARALLEL_LEVEL=32
+    # Jetson Thor (SBSA/SM_90): Reduced parallelism to avoid driver instability
+    export MAX_JOBS=12
+    export CMAKE_BUILD_PARALLEL_LEVEL=12
     export CPLUS_INCLUDE_PATH=/usr/local/cuda-13.0/targets/sbsa-linux/include/cccl
 fi
 export NVCC_THREADS=2
