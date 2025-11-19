@@ -40,7 +40,8 @@ cat pyproject.toml
 if [[ -z "${IS_SBSA:-}" || "${IS_SBSA}" == "0" || "${IS_SBSA,,}" == "false" ]]; then
   export CORES=$(nproc) # Automatically use all available cores
 else
-  export CORES=32  # GH200 or other specific hardware
+  # Jetson Thor (SBSA): Reduced parallelism to avoid driver instability
+  export CORES=12  # Reduced from 32 due to NVRM driver issues
 fi
 export CMAKE_BUILD_PARALLEL_LEVEL="${CORES}"
 export MAX_JOBS="${CORES}"
