@@ -64,7 +64,7 @@ build 要求:
 1. 每次 build 都要 根据 ay 分支 创建一个 ay-[包名字例如:sglang] 的分支，然后在此分支进行 packages/[包名字]/xxx 等构建文件的修改，来适配当前的设备版本.
   - ay 分支我一般不会从 master 合并，必要的时候 从 master 合并过来，合并之前我会评估好合并之后的兼容性.
 2. 每次 build 之前都要检查好 每一个 构建文件的实际代码，尽量贴合当前设备的配置信息.
-3. 我使用的命令大致是: `jetson-containers build $(autotag sglang:builder)`
+3. 我使用的命令大致是: `export MAX_JOBS=12 && jetson-containers build sglang:builder`
 
 
 ### 在 Build sglang 的时候 进行的修改
