@@ -63,7 +63,8 @@
       "Bash(docker restart:*)",
       "Bash(docker version:*)",
       "Bash(docker info:*)",
-      "Bash(./autotag:*)"
+      "Bash(./autotag:*)",
+      "Bash(git merge:*)"
     ],
     "deny": [],
     "ask": []

@@ -67,6 +67,13 @@ build 要求:
 3. 我使用的命令大致是: `export MAX_JOBS=12 && jetson-containers build sglang:builder`
 
 
+### 注意事项:
+1. 如果某个镜像文件build 报错并且修复了 package 的 build 的逻辑，那么优先删除之前错误的镜像文件，然后重新 build
+2. Build 和 test 日志位置：/home/ay/Desktop/app/jetson-containers/logs/{timestamp}/build/ 和 test/ 目录。格式为 {stage}o{total}_sglang_builder-...-{package}.txt
+3. 遇到 build/test 失败，优先检查日志中的关键词（如 CUDA_ARCH、IS_SBSA、MAX_JOBS 等），确认编译参数是否正确传递
+4. Dockerfile 中 ARG 声明的变量必须同时在 ENV 中设置或传递，config.py 中必须通过 build_args 显式传递，否则 build.sh 脚本中无法访问
+
+
 ### 在 Build sglang 的时候 进行的修改
 (base) ay@ubuntu:~/Desktop/app/jetson-containers$ git diff packages/attention/xformers/build.sh
 diff --git a/packages/attention/xformers/build.sh b/packages/attention/xformers/build.sh
