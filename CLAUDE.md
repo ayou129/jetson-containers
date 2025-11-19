@@ -1,4 +1,8 @@
-# 这是我们的机器设备和驱动详情
+## 要求
+1. git 相关例如 commit 要使用中文提交
+2. 所有获取内容的命令 例如 ls cat 等等命令都可以执行，编辑也可以不过改完让我知道即可.
+
+## 机器设备和驱动详情
 - ⚠ Jetson 的系统组件（驱动 / CUDA / cuDNN / TensorRT）全部由 JetPack 固定绑定版本，绝不能手动覆盖。
   - 任何额外 apt/pip 安装都会破坏依赖，导致 GPU、CUDA 或系统崩溃。
 - ⚠ ROS2 不能 apt 装（ros-jazzy-*），Thor 必须使用 NVIDIA Isaac ROS 官方 Docker（JetPack 对齐版）。
@@ -9,7 +13,7 @@
 - ROS 2 apt 包(ros-jazzy-*, ros-humble-*, ros-iron-*)
 - pip GPU 框架（因为会拉 x86 或无 CUDA13 版本）torch, torchvision, tensorflow
 
-## 机器设备和驱动详情
+
 ~~~sh
 # lsb_release -a
 No LSB modules are available.
