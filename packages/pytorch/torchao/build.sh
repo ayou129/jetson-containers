@@ -9,11 +9,11 @@ cd /opt/torchao
 #git checkout v${TORCHAO_VERSION}
 
 #export TORCH_CUDA_ARCH_LIST="8.7"
-# Conservative parallelism on Thor (SBSA) to avoid system overload
+# Limit MAX_JOBS on Thor (SBSA) to avoid driver instability
 if [[ -z "${IS_SBSA}" || "${IS_SBSA}" == "0" || "${IS_SBSA,,}" == "false" ]]; then
     export MAX_JOBS=$(nproc)  # Use all cores on Orin
 else
-    export MAX_JOBS=6  # Conservative for Thor (SBSA) to avoid CPU/GPU overload
+    export MAX_JOBS=12  # Reduced for Thor (SBSA) due to NVRM driver issues
 fi
 export CMAKE_BUILD_TYPE=Release
 sed -i -E 's/(version[[:space:]]*=[[:space:]]*version)[[:space:]]*\+[[:space:]]*version_suffix,/\1,/' setup.py
